@@ -1,0 +1,2 @@
+import type { Match, Standing } from '../data/types'
+export function computeStandings(pairIds:string[],matches:Match[]):Standing[]{const map:Record<string,Standing>={};pairIds.forEach(id=>map[id]={pairId:id,GF:0,GS:0,diff:0});matches.forEach(m=>{map[m.pairA].GF+=m.gamesA;map[m.pairA].GS+=m.gamesB;map[m.pairB].GF+=m.gamesB;map[m.pairB].GS+=m.gamesA});Object.values(map).forEach(s=>s.diff=s.GF-s.GS);const arr=Object.values(map);arr.sort((a,b)=>b.diff-a.diff || b.GF-a.GF);arr.forEach((s,i)=>s.rank=i+1);return arr}
